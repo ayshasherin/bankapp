@@ -1,0 +1,26 @@
+<body>
+    <div class="container">
+        <div class="box">
+            <h1 id="title">LOGIN</h1>
+            <div class="tbox">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+                    <i class="fa fa-user icon" aria-hidden="true"></i>
+                    <input type="text" formControlName="acno" name="acno"  placeholder="Enter Account Number" id="bk_useracc">
+                    <br>
+
+                    <i class="fa fa-lock icon" aria-hidden="true"></i>
+                    <input type="password" formControlName="pwd" name="pwd" placeholder="Enter Your Password"
+                        id="bk_password"><br />
+
+                        <button type="submit">
+                            <span>LOGIN</span>
+                        </button><br>
+                </form>
+            </div>
+            
+            <!-- <p class="mt-2 text-white">{{slogan}}</p> --> <br>
+            <a class="already"  routerLink="register" >Not a User? Register !</a>
+        </div>
+    </div>
+</body>

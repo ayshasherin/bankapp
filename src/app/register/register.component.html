@@ -1,0 +1,32 @@
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>REGISTER </h1>
+            <div class="tbox">
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                    <i class="fa fa-user icon" aria-hidden="true"></i>
+                    <input type="text" name="uname" formControlName="uname" placeholder=" Enter your Name"
+                        id="bk_name"><br />
+
+                    <i class="fa fa-user-plus icon" aria-hidden="true"></i>
+                    <input type="text" name="acno" formControlName="acno" placeholder="Enter Account Number"
+                        id="bk_acno"><br>
+
+                    <i class="fa fa-lock icon" aria-hidden="true"></i>
+                    <input type="password" name="pwd" formControlName="pwd" placeholder="Enter your password"
+                        id="bk_pwd"><br />
+
+                    <div>
+                        <button type="submit">Create Account</button>
+                    </div><br>
+
+                </form>
+            </div>
+
+            <a class="already" style="text-decoration: none ;color: whitesmoke;" routerLink="">Already Have an Account
+                ?</a>
+        </div>
+
+
+    </div>
+</body>
