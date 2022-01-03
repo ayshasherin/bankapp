@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DatasService {
 
+  currentUserName:any
+
   users: any = {
     1000: { acno: 1000, uname: "Sanoob", password: "abc0", balance: 5000 },
     1001: { acno: 1001, uname: "Franklin", password: "abc1", balance: 5000 },
@@ -40,7 +42,9 @@ export class DatasService {
 
     if (acno in database) {
       if (password == database[acno]["password"]) {
+        this.currentUserName=database[acno]["uname"]
         return true
+        
 
 
       } else {

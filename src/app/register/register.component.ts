@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatasService } from '../services/datas.service';
 
@@ -18,9 +18,9 @@ export class RegisterComponent implements OnInit {
 
   registerForm =this.fb.group({
 
-    uname:[''],
-    acno:[''],
-    pwd:['']
+    uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]],
+    acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
+    pwd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
 
   })
 
@@ -31,7 +31,13 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log(this.registerForm);
+
+    // console.log(this.registerForm);
+    if(this.registerForm.get('uname')?.errors){
+      alert("invalid username")
+    }
+
+    if (this.registerForm.valid){
 
     var uname=this.registerForm.value.uname
     var acno =this.registerForm.value.acno
@@ -47,6 +53,11 @@ export class RegisterComponent implements OnInit {
     }else{
       alert("Account Already Exist")
     }
+    }
+    else{
+      alert("invalid form")
+    }
+    
   }
 
 }

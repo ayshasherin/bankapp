@@ -1,0 +1,116 @@
+<header style="background-color: #fca311;">
+  <h1 class="Logo">ABC Bank</h1>
+  <input type="checkbox " name="" class="btn1" placeholder="*"/>
+  <div class="nav">
+    <ol>
+      <li><a href="#">Home</a></li>
+      <li><a href="#" onclick="bank.balanceEnquiry()">Balance Enquiry</a></li>
+      <!-- <button data-bs-toggle="modal" data-bs-target="#exampleModal" >Fund tarnsfer</button> -->
+      <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"> Fund Transfer</a></li>
+      <li><a href="#" onclick="bank.logout()">Logout</a></li>
+    </ol>
+  </div>
+</header>
+
+<body class="bg-dark">
+  <div class="container">
+
+    <!-- Modal -->
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Fund Transfer</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <input type="text" name="" id="bk_toacno" class="form-control" placeholder="Enter To Account Number">
+
+            </div>
+            <div class="mb-3">
+              <input type="text" name="" id="bk_ctoacno" class="form-control" placeholder="Confirm To Account Number">
+
+            </div>
+            <div class="mb-3">
+              <input type="text" name="" id="bk_amt" class="form-control" placeholder="Enter Amount">
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="bank.fundTransfer()">Proceed</button>
+          </div>
+        </div>
+      </div>
+
+    </div> -->
+    <div id="welcome">
+      <h1 class="text-center">Welcome User</h1>
+    </div>
+
+    <div class="section1 col-lg-12 col-md-12 col-sm">
+
+      <div class="row box">
+        <h1 id="title">DEPOSIT FORM</h1>
+        <div class=" tbox">
+          <form [formGroup]="depositForm"  (ngSubmit)="deposit()">
+
+            <i class="fa fa-user icon" aria-hidden="true"></i>
+            <input type="text" formControlName="acno" name="acno" placeholder="Enter Account Number" id="bk_useracc">
+            <br>
+            <div *ngIf="(this.depositForm.get('acno')?.touched || this.depositForm.get('acno')?.dirty)&&this.depositForm.get('acno')?.errors" class="warnings">Invalid Account No.</div>
+
+            <i class="fa fa-rupee icon" aria-hidden="true"></i> 
+            <input type="text" formControlName="amount" name="amount" placeholder="Enter Amount" id="bk_amount">
+            <br>
+            <div *ngIf="(this.depositForm.get('amount')?.touched || this.depositForm.get('amount')?.dirty)&&this.depositForm.get('amount')?.errors" class="warnings">Invalid Ammount </div>
+
+
+            <i class="fa fa-lock icon" aria-hidden="true"></i>
+            <input type="password" formControlName="pwd" name="pwd" placeholder="Enter Your Password"
+              id="bk_password"><br />
+              <div *ngIf="(this.depositForm.get('pwd')?.touched || this.depositForm.get('pwd')?.dirty)&&this.depositForm.get('pwd')?.errors" class="warnings">Invalid Password </div>
+
+
+            <button type="submit">
+              <span>Deposit</span>
+            </button><br>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="row box">
+        <h1 id="title">WITHDRAW FORM</h1>
+        <div class="tbox">
+          <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+
+            <i class="fa fa-user icon" aria-hidden="true"></i>
+            <input type="text" formControlName="accno" name="acno" placeholder="Enter Account Number" id="useracc">
+            <br>
+            <div *ngIf="(this.withdrawForm.get('accno')?.touched || this.withdrawForm.get('accno')?.dirty)&&this.withdrawForm.get('accno')?.errors" class="warnings">Invalid Account No.</div>
+
+            <i class="fa fa-rupee icon" aria-hidden="true"></i> 
+            <input type="text" formControlName="amounts" name="amount" placeholder="Enter Amount" id="bkamount">
+            <br>
+            <div *ngIf="(this.withdrawForm.get('amounts')?.touched || this.withdrawForm.get('amounts')?.dirty)&&this.withdrawForm.get('amounts')?.errors" class="warnings">Invalid Ammount </div>
+
+
+            <i class="fa fa-lock icon" aria-hidden="true"></i>
+            <input type="password" formControlName="pswd" name="pwd" placeholder="Enter Your Password"
+              id="bkpassword"><br />
+              <div *ngIf="(this.withdrawForm.get('pswd')?.touched || this.withdrawForm.get('pswd')?.dirty)&&this.withdrawForm.get('pswd')?.errors" class="warnings">Invalid Password </div>
+
+
+
+            <button type="submit">
+              <span>Withdraw</span>
+            </button><br>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

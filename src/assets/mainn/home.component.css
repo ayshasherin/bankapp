@@ -1,14 +1,30 @@
 
 body{
-    height: 150vh;
+  
+    height: 100vh;
+}
+
+  @media screen and (max-width: 500px) {
+  
+    .box{
+        width: 50%;
+    }
+  }
+
+
+
+.section1{
+display: flex;
+justify-content: space-evenly;
+padding-top: 100px;
 }
 
 #welcome h1{
-    color: rgb(255, 255, 255);
-    font-size: 50px;
-    font-family: sans-serif;
-    padding-top: 30px ;
-    font-weight: 600;
+color: rgb(255, 255, 255);
+font-size: 50px;
+font-family: sans-serif;
+padding-top: 30px ;
+font-weight: 600;
 }
 
 .warnings{
@@ -26,13 +42,6 @@ body{
     font-size: 30px;
     color: whitesmoke;
 }
-.row{
-    justify-content: center;
-    justify-content: space-evenly;
-    margin-top: 0px;
-   
-   
-}
 
 .box{
     width:400px;
@@ -40,19 +49,16 @@ body{
     background-image: linear-gradient(60deg,#180950,#1D2671);
     text-align: center;
     border-radius: 20px;
-    align-items: center;
-    margin-top:70px ;
     }
-
     
-.box h1{
+    .box h1{
     
-    color:rgb(255, 255, 255);
-    text-align: center;
-    font-size: 40px;
-    padding-top: 20px;
+        color:rgb(255, 255, 255);
+        text-align: center;
+        font-size: 40px;
+        padding-top: 20px;
        
-}
+    }
     
     input{
      width:300px;
@@ -66,7 +72,10 @@ body{
      background-color: rgba(223, 209, 191, 0.884);
     
     }
-   
+    .tbox{
+      align-items: center;
+  
+    }
     
     .icon{
         position: absolute;

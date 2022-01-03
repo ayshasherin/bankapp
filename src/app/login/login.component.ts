@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatasService } from '../services/datas.service';
 
@@ -19,9 +19,10 @@ export class LoginComponent implements OnInit {
   pwd = ""
 
   loginForm = this.fb.group({
+  
+    acno: ['',[Validators.required,Validators.pattern('[0-9]*')]],
 
-    acno: [''],
-    pwd: ['']
+    pwd: ['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
 
   })
 
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   // pwdChange(event:any){
   //   this.pwd=event.target.value
-  //   console.log(this.pwd);
+  //   console.log(this.pwd); 
 
   // }
 
@@ -48,12 +49,20 @@ export class LoginComponent implements OnInit {
     var acno = this.loginForm.value.acno
     var password = this.loginForm.value.pwd
 
-    let result = this.ds.login(acno, password)
+    if(this.loginForm.valid){
+      let result = this.ds.login(acno, password)
 
     if (result == true) {
       alert("Login Successfull")
       this.router.navigateByUrl('home')
     }
+
+    }
+    else{
+      alert("invalid Form")
+    }
+
+    
 
 
 

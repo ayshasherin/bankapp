@@ -1,4 +1,4 @@
-<body>
+<body> 
     <div class="container">
         <div class="box">
             <h1 id="title">LOGIN</h1>
@@ -8,10 +8,14 @@
                     <i class="fa fa-user icon" aria-hidden="true"></i>
                     <input type="text" formControlName="acno" name="acno"  placeholder="Enter Account Number" id="bk_useracc">
                     <br>
+                    <div *ngIf="(this.loginForm.get('acno')?.touched || this.loginForm.get('acno')?.dirty)&&this.loginForm.get('acno')?.errors" class="warnings">Invalid Account No.</div>
+
 
                     <i class="fa fa-lock icon" aria-hidden="true"></i>
                     <input type="password" formControlName="pwd" name="pwd" placeholder="Enter Your Password"
                         id="bk_password"><br />
+                        <div *ngIf="(this.loginForm.get('pwd')?.touched || this.loginForm.get('pwd')?.dirty)&&this.loginForm.get('pwd')?.errors" class="warnings">Invalid Password</div>
+
 
                         <button type="submit">
                             <span>LOGIN</span>
