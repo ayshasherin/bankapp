@@ -5,16 +5,57 @@ import { Injectable } from '@angular/core';
 })
 export class DatasService {
 
-  currentUserName:any
+  currentUserName: any
 
-  users: any = {
-    1000: { acno: 1000, uname: "Sanoob", password: "abc0", balance: 5000 },
-    1001: { acno: 1001, uname: "Franklin", password: "abc1", balance: 5000 },
-    1002: { acno: 1002, uname: "Michael", password: "abc2", balance: 5000 },
-    1003: { acno: 1003, uname: "Trevor", password: "abc3", balance: 5000 },
+  currentAcno:any
+
+
+  //sample database
+
+  users:any = {
+    1000: { acno: 1000, uname: "Sanoob", password: "abc0", balance: 5000,transaction:[]  },
+    1001: { acno: 1001, uname: "Franklin", password: "abc1", balance: 5000 ,transaction:[] },
+    1002: { acno: 1002, uname: "Michael", password: "abc2", balance: 5000,transaction:[] },
+    1003: { acno: 1003, uname: "Trevor", password: "abc3", balance: 5000,transaction:[] },
   }
 
-  constructor() { }
+  constructor() {
+    this.getDetails()
+  }
+
+  
+
+  //to store in local storage
+
+  saveDetails() {
+    if (this.users) {
+      localStorage.setItem("db", JSON.stringify(this.users))
+    }
+    if (this.currentUserName) {
+      localStorage.setItem("cUname", JSON.stringify(this.currentUserName))
+    }
+    if(this.currentAcno){
+      localStorage.setItem("cAcno", JSON.stringify(this.currentAcno))
+    }
+  }
+
+  // to get values from local storage
+
+  getDetails() {
+    if (localStorage.getItem("db")) {
+      this.users = JSON.parse(localStorage.getItem("db") || "")
+    }
+
+    if (localStorage.getItem("cUname")) {
+      this.currentUserName = JSON.parse(localStorage.getItem("cUname") || "")
+
+    }
+    if(localStorage.getItem("cAcno")){
+      this.currentAcno=JSON.parse(localStorage.getItem("cAcno") || "")
+    }
+  }
+
+
 
   register(acno: any, uname: any, password: any) {
     let db = this.users
@@ -28,9 +69,11 @@ export class DatasService {
         acno,
         uname,
         password,
-        balance: 5000
+        balance: 5000,
+        transaction:[]
       }
-      // console.log(db);
+      // console.log(db); 
+      this.saveDetails()
       return true
 
     }
@@ -42,10 +85,10 @@ export class DatasService {
 
     if (acno in database) {
       if (password == database[acno]["password"]) {
-        this.currentUserName=database[acno]["uname"]
+        this.currentAcno=acno
+        this.currentUserName = database[acno]["uname"]
+        this.saveDetails()
         return true
-        
-
 
       } else {
         alert("Invalid Password")
@@ -58,6 +101,12 @@ export class DatasService {
     }
   }
 
+  getTransactions(){
+    return this.users[this.currentAcno].transaction
+
+  }
+
+
   deposit(acno: any, password: any, amt: any) {
 
 
@@ -67,6 +116,11 @@ export class DatasService {
     if (acno in db) {
       if (password == db[acno]["password"]) {
         db[acno]["balance"] = db[acno]["balance"] + amount
+        db[acno].transaction.push({
+          amount:amount,
+          type:"CREDIT"
+        })
+        this.saveDetails()
         return db[acno]["balance"]
 
       } else {
@@ -92,15 +146,21 @@ export class DatasService {
 
     if (acno in db) {
       if (password == db[acno]["password"]) {
-        if(db[acno]["balance"]>amount){
+        if (db[acno]["balance"] > amount) {
           db[acno]["balance"] = db[acno]["balance"] - amount
+          db[acno].transaction.push({
+            amount:amount,
+            type:"DEBIT"
+          })
+          this.saveDetails()
+
           return db[acno]["balance"]
 
-        }else{
+        } else {
           alert("insufficient Blance")
           return false
         }
-       
+
 
       } else {
         alert("Incorrect password")

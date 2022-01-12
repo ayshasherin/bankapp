@@ -6,10 +6,10 @@
       <li><a href="#">Home</a></li>
       <li><a href="#" onclick="bank.balanceEnquiry()">Balance Enquiry</a></li>
       <!-- <button data-bs-toggle="modal" data-bs-target="#exampleModal" >Fund tarnsfer</button> -->
-      <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"> Fund Transfer</a></li>
-      <li><a href="#" onclick="bank.logout()">Logout</a></li>
+      <li><a href="#" routerLink="/transactions">Transactions</a></li>
+      <li><a href="#" routerLink="">Logout</a></li>
     </ol>
-  </div>
+  </div> 
 </header>
 
 <body class="bg-dark">
@@ -33,12 +33,12 @@
             <form [formGroup]="depositForm"  (ngSubmit)="deposit()">
   
               <i class="fa fa-user icon" aria-hidden="true"></i>
-              <input type="text" formControlName="acno" name="acno" placeholder="Enter Account Number" id="bk_useracc">
+              <input type="text" formControlName="acno" name="acno" placeholder="Enter Account Number" id="bk_user">
               <br>
               <div *ngIf="(this.depositForm.get('acno')?.touched || this.depositForm.get('acno')?.dirty)&&this.depositForm.get('acno')?.errors" class="warnings">Invalid Account No.</div>
   
               <i class="fa fa-rupee icon" aria-hidden="true"></i> 
-              <input type="text" formControlName="amount" name="amount" placeholder="Enter Amount" id="bk_amount">
+              <input type="text" formControlName="amount" name="amount" placeholder="Enter Amount" id="bk_amnt">
               <br>
               <div *ngIf="(this.depositForm.get('amount')?.touched || this.depositForm.get('amount')?.dirty)&&this.depositForm.get('amount')?.errors" class="warnings">Invalid Ammount </div>
   
@@ -47,7 +47,6 @@
               <input type="password" formControlName="pwd" name="pwd" placeholder="Enter Your Password"
                 id="bk_password"><br />
                 <div *ngIf="(this.depositForm.get('pwd')?.touched || this.depositForm.get('pwd')?.dirty)&&this.depositForm.get('pwd')?.errors" class="warnings">Invalid Password </div>
-  
   
               <button type="submit">
                 <span>Deposit</span>

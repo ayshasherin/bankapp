@@ -1,0 +1,43 @@
+<body>
+
+    <div class="container">
+
+
+        <div class="heading">
+            <h1>Transaction History</h1>
+        </div><br><br>
+
+        <table class="container">
+            <thead>
+                <tr>
+                    <th>
+                        <h1>Sl.No</h1>
+                    </th>
+                    <th>
+                        <h1>Amount</h1>
+                    </th>
+                    <th>
+                        <h1>Type</h1>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of transactions; let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{transaction.amount}}</td>
+                    <td>{{transaction.type}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="backbutton ">
+            <button routerLink="/home" class="learn-more ">
+                <span class="circle" aria-hidden="true">
+                    <span class="icon arrow"></span>
+                </span>
+                <span class="button-text">Back To Home</span>
+            </button>
+        </div>
+    </div>
+</body>
