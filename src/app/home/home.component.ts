@@ -38,14 +38,35 @@ export class HomeComponent implements OnInit {
 
   })
   
-  user=this.ds.currentUserName
+  
+  user:any
+  
+  accountno= ""
 
+  lDate:any
+  
 
-
-
-  constructor(private router: Router, private ds: DatasService, private fb: FormBuilder) { }
+  constructor(private router: Router, private ds: DatasService, private fb: FormBuilder) {
+    this.lDate=new Date()
+    if(localStorage.getItem("currentUserName")){
+    this.user=JSON.parse(localStorage.getItem("currentUserName") || "" )}
+   }
 
   ngOnInit(): void {
+
+    if(!localStorage.getItem("token")){
+      alert("Please Login")
+      this.router.navigateByUrl("")
+    }
+
+  }
+
+  logout(){
+    localStorage.removeItem("currentAcno")
+    localStorage.removeItem("currentUserName")
+    localStorage.removeItem("token")
+    this.router.navigateByUrl("")
+
 
   }
 
@@ -56,10 +77,15 @@ export class HomeComponent implements OnInit {
 
     if (this.depositForm.valid){
 
-      let result = this.ds.deposit(acno, pwd, amount)
-      if (result) {
-        alert(amount + " Credited !! Your New balance is " + result)
-      }
+      this.ds.deposit(acno, pwd, amount)
+      .subscribe((result: any) => {
+        if (result) {
+          alert(result.message)
+        }
+      },
+        (result) => {
+          alert(result.error.message)
+        })
 
     }
     else{
@@ -76,19 +102,43 @@ export class HomeComponent implements OnInit {
 
     if(this.withdrawForm.valid){
 
-      let result = this.ds.withdraw(accno, pswd, amounts)
-
-    if (result) {
-
-      alert(amounts + " Debited !! Your New balance is " + result)
-    }
+      this.ds.withdraw(accno, pswd, amounts)
+      .subscribe((result: any) => {
+        if (result) {
+          alert(result.message)
+        }
+      },
+        (result) => {
+          alert(result.error.message)
+        })
 
     }else{
       alert("Invalid Form")
     }
     
+  }
 
+  deleteFromParent(){
+    this.accountno = JSON.parse(localStorage.getItem("currentAcno") || "")
 
+  }
+
+  delete(event:any){
+    // alert("Message from Parent")
+    this.ds.delete(event)
+    .subscribe((result:any)=>{
+      if(result){
+        alert(result.message)
+        this.router.navigateByUrl("")
+      }
+    },
+    (result)=>{
+      alert(result.error.message)
+    })
+  }
+
+  cancel(){
+    this.accountno=""
   }
 
 }

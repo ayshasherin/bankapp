@@ -1,92 +1,114 @@
 <header style="background-color: #fca211;">
-  <h1 class="Logo">ABC Bank</h1>
-  <input type="checkbox " name="" class="btn1" placeholder="*"/>
+  <h1 class="Logo">ABCD Bank 💸</h1>
+  <input type="checkbox " name="" class="btn1" placeholder="*" />
   <div class="nav">
     <ol>
       <li><a href="#">Home</a></li>
       <li><a href="#" onclick="bank.balanceEnquiry()">Balance Enquiry</a></li>
       <!-- <button data-bs-toggle="modal" data-bs-target="#exampleModal" >Fund tarnsfer</button> -->
       <li><a href="#" routerLink="/transactions">Transactions</a></li>
-      <li><a href="#" routerLink="">Logout</a></li>
+      <li><a (click)="deleteFromParent()">Delete Account</a></li>
+      <li><a (click)="logout()">Logout</a></li>
     </ol>
-  </div> 
+  </div>
 </header>
 
 <body class="bg-dark">
   <div class="container">
 
-    
+    <!-- parent -home component & child deleteaccount component -->
 
-    
+
+
+
+
     <div id="welcome">
-      <h1 class="text-center">Welcome <span >{{user}}</span></h1>
+      <h1 class="text-center">Welcome <span>{{user}}</span></h1>
     </div>
+
+    <app-deleteaccount (onCancel)="cancel()" (onDelete)="delete($event)" [item]="accountno"></app-deleteaccount>
+
 
     <div class="section1">
 
-      <div class="row" >
+      <div class="row">
 
-          <div class="col-6 box ">
-            <div>
-              <h1 id="title">DEPOSIT FORM</h1>
-            </div><br>
-            <form [formGroup]="depositForm"  (ngSubmit)="deposit()">
-  
-              <i class="fa fa-user icon" aria-hidden="true"></i>
-              <input type="text" formControlName="acno" name="acno" placeholder="Enter Account Number" id="bk_user">
-              <br>
-              <div *ngIf="(this.depositForm.get('acno')?.touched || this.depositForm.get('acno')?.dirty)&&this.depositForm.get('acno')?.errors" class="warnings">Invalid Account No.</div>
-  
-              <i class="fa fa-rupee icon" aria-hidden="true"></i> 
-              <input type="text" formControlName="amount" name="amount" placeholder="Enter Amount" id="bk_amnt">
-              <br>
-              <div *ngIf="(this.depositForm.get('amount')?.touched || this.depositForm.get('amount')?.dirty)&&this.depositForm.get('amount')?.errors" class="warnings">Invalid Ammount </div>
-  
-  
-              <i class="fa fa-lock icon" aria-hidden="true"></i>
-              <input type="password" formControlName="pwd" name="pwd" placeholder="Enter Your Password"
-                id="bk_password"><br />
-                <div *ngIf="(this.depositForm.get('pwd')?.touched || this.depositForm.get('pwd')?.dirty)&&this.depositForm.get('pwd')?.errors" class="warnings">Invalid Password </div>
-  
-              <button type="submit">
-                <span>Deposit</span>
-              </button><br>
-            </form>
-          </div>
-  
-           <div class="col-6 box ">
-            <div><h1 id="title">WITHDRAW FORM</h1></div><br>
-            <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
-  
-              <i class="fa fa-user icon" aria-hidden="true"></i>
-              <input type="text" formControlName="accno" name="acno" placeholder="Enter Account Number" id="useracc">
-              <br>
-              <div *ngIf="(this.withdrawForm.get('accno')?.touched || this.withdrawForm.get('accno')?.dirty)&&this.withdrawForm.get('accno')?.errors" class="warnings">Invalid Account No.</div>
-  
-              <i class="fa fa-rupee icon" aria-hidden="true"></i> 
-              <input type="text" formControlName="amounts" name="amount" placeholder="Enter Amount" id="bkamount">
-              <br>
-              <div *ngIf="(this.withdrawForm.get('amounts')?.touched || this.withdrawForm.get('amounts')?.dirty)&&this.withdrawForm.get('amounts')?.errors" class="warnings">Invalid Ammount </div>
-  
-  
-              <i class="fa fa-lock icon" aria-hidden="true"></i>
-              <input type="password" formControlName="pswd" name="pwd" placeholder="Enter Your Password"
-                id="bkpassword"><br />
-                <div *ngIf="(this.withdrawForm.get('pswd')?.touched || this.withdrawForm.get('pswd')?.dirty)&&this.withdrawForm.get('pswd')?.errors" class="warnings">Invalid Password </div>
-  
-  
-  
-              <button type="submit">
-                <span>Withdraw</span>
-              </button><br>
-            </form>
-  
-          </div>
-  
-        
+        <div [ngClass]="accountno? 's1': '' " class="col-6 box ">
+          <div>
+            <h1  id="title">DEPOSIT FORM</h1>
+          </div><br>
+          <form [formGroup]="depositForm" (ngSubmit)="deposit()">
+
+            <i class="fa fa-user icon" aria-hidden="true"></i>
+            <input type="text" formControlName="acno" name="acno" placeholder="Enter Account Number" id="bk_user">
+            <br>
+            <div
+              *ngIf="(this.depositForm.get('acno')?.touched || this.depositForm.get('acno')?.dirty)&&this.depositForm.get('acno')?.errors"
+              class="warnings">Invalid Account No.</div>
+
+            <i class="fa fa-rupee icon" aria-hidden="true"></i>
+            <input type="text" formControlName="amount" name="amount" placeholder="Enter Amount" id="bk_amnt">
+            <br>
+            <div
+              *ngIf="(this.depositForm.get('amount')?.touched || this.depositForm.get('amount')?.dirty)&&this.depositForm.get('amount')?.errors"
+              class="warnings">Invalid Ammount </div>
+
+
+            <i class="fa fa-lock icon" aria-hidden="true"></i>
+            <input type="password" formControlName="pwd" name="pwd" placeholder="Enter Your Password"
+              id="bk_password"><br />
+            <div
+              *ngIf="(this.depositForm.get('pwd')?.touched || this.depositForm.get('pwd')?.dirty)&&this.depositForm.get('pwd')?.errors"
+              class="warnings">Invalid Password </div>
+
+            <button type="submit">
+              <span>Deposit</span>
+            </button><br>
+          </form>
         </div>
-        
-        
+
+        <div [ngClass]="accountno? 's1': '' " class="col-6 box ">
+          <div>
+            <h1  id="title">WITHDRAW FORM</h1>
+          </div><br>
+          <form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
+
+            <i class="fa fa-user icon" aria-hidden="true"></i>
+            <input type="text" formControlName="accno" name="acno" placeholder="Enter Account Number" id="useracc">
+            <br>
+            <div
+              *ngIf="(this.withdrawForm.get('accno')?.touched || this.withdrawForm.get('accno')?.dirty)&&this.withdrawForm.get('accno')?.errors"
+              class="warnings">Invalid Account No.</div>
+
+            <i class="fa fa-rupee icon" aria-hidden="true"></i>
+            <input type="text" formControlName="amounts" name="amount" placeholder="Enter Amount" id="bkamount">
+            <br>
+            <div
+              *ngIf="(this.withdrawForm.get('amounts')?.touched || this.withdrawForm.get('amounts')?.dirty)&&this.withdrawForm.get('amounts')?.errors"
+              class="warnings">Invalid Ammount </div>
+
+
+            <i class="fa fa-lock icon" aria-hidden="true"></i>
+            <input type="password" formControlName="pswd" name="pwd" placeholder="Enter Your Password"
+              id="bkpassword"><br />
+            <div
+              *ngIf="(this.withdrawForm.get('pswd')?.touched || this.withdrawForm.get('pswd')?.dirty)&&this.withdrawForm.get('pswd')?.errors"
+              class="warnings">Invalid Password </div>
+
+
+
+            <button type="submit">
+              <span>Withdraw</span>
+            </button><br>
+          </form>
+
+        </div>
+
+
+      </div>
+
+      <!-- <p class="text-white text-center p-5">Login Details (unformatted) :{{lDate}}</p> -->
+      <p class="text-white text-center pt-5">Login Details (formatted) :{{lDate|date:'short'}}</p>
 
     </div>
   </div>

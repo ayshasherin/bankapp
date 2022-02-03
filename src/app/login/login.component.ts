@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   pwd = ""
 
-  loginForm = this.fb.group({
+  loginForm = this.fb.group({ 
   
     acno: ['',[Validators.required,Validators.pattern('[0-9]*')]],
 
@@ -50,13 +50,27 @@ export class LoginComponent implements OnInit {
     var password = this.loginForm.value.pwd
 
     if(this.loginForm.valid){
-      let result = this.ds.login(acno, password)
+      //asynchronous 
 
-    if (result == true) {
-      alert("Login Successfull")
-      this.router.navigateByUrl('home')
-    }
+      this.ds.login(acno, password)
 
+      .subscribe((result: any) => {
+        if (result) {
+          alert(result.message)
+        //for permenent storage
+
+          localStorage.setItem("currentAcno",JSON.stringify(result.currentAcno))
+          localStorage.setItem("currentUserName",JSON.stringify(result.currentUserName))
+          localStorage.setItem("token",JSON.stringify(result.token))
+
+          this.router.navigateByUrl("home")
+
+        }
+      },
+        (result) => {
+          alert(result.error.message)
+        })
+    
     }
     else{
       alert("invalid Form")

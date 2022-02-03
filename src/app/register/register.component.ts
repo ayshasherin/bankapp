@@ -10,54 +10,57 @@ import { DatasService } from '../services/datas.service';
 })
 export class RegisterComponent implements OnInit {
 
-  uname=""
+  uname = ""
 
-  acno=""
+  acno = ""
 
-  pwd="" 
+  pwd = ""
 
-  registerForm =this.fb.group({
+  registerForm = this.fb.group({
 
-    uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]],
-    acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
-    pwd:['',[Validators.required,Validators.pattern('[a-zA-Z0-9]*')]]
+    uname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    acno: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+    pwd: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]*')]]
 
   })
 
 
-  constructor(private ds:DatasService, private router:Router, private fb:FormBuilder) { }
+  constructor(private ds: DatasService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
-  register(){
+  register() {
 
     // console.log(this.registerForm);
-    if(this.registerForm.get('uname')?.errors){
+    if (this.registerForm.get('uname')?.errors) {
       alert("invalid username")
     }
 
-    if (this.registerForm.valid){
+    if (this.registerForm.valid) {
 
-    var uname=this.registerForm.value.uname
-    var acno =this.registerForm.value.acno
-    var pwd=this.registerForm.value.pwd
-    
-    let result=this.ds.register(acno,uname,pwd)
-    alert("Registered")
+      var uname = this.registerForm.value.uname
+      var acno = this.registerForm.value.acno
+      var pwd = this.registerForm.value.pwd
 
-    if(result==true){
-      alert("Account Registered Successfully") 
-      
-      this.router.navigateByUrl("")
-    }else{
-      alert("Account Already Exist")
+      //asynchronous event
+
+      this.ds.register(acno, uname, pwd)
+        .subscribe((result: any) => {
+          if (result) {
+            alert(result.message)
+            this.router.navigateByUrl("")
+
+          }
+        },
+          (result) => {
+            alert(result.error.message)
+          })
     }
-    }
-    else{
+    else {
       alert("invalid form")
     }
-    
+
   }
 
 }

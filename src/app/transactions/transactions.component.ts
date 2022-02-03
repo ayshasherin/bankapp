@@ -7,16 +7,34 @@ import { DatasService } from '../services/datas.service';
   styleUrls: ['./transactions.component.css']
 })
 
+
 export class TransactionsComponent implements OnInit {
 
-  transactions:any
+  acno = ""
 
-  constructor(private ds:DatasService) {
-    this.transactions=this.ds.getTransactions()
-    console.log(this.transactions);
-    
+  transactions: any
 
-   }
+  constructor(private ds: DatasService) {
+    this.acno = JSON.parse(localStorage.getItem("currentAcno") || "")
+    console.log(this.acno);
+
+    this.ds.getTransactions(this.acno)
+      .subscribe((result: any) => {
+        console.log(result);
+
+        if (result) {
+          this.transactions = result.transaction
+        }
+      }
+        ,
+        (result) => {
+          alert(result.error.message);
+
+        })
+    // console.log(this.transactions);
+
+
+  }
 
   ngOnInit(): void {
   }
