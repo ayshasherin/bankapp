@@ -106,7 +106,6 @@ export class DatasService {
       amt
 
     }
-
     //asynchronous 
     return this.http.post('http://localhost:3000/deposit', data, this.getOptions())
 
