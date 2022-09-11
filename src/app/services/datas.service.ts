@@ -11,14 +11,14 @@ const options = {
 export class DatasService {
 
   currentUserName: any
-  
+
   currentAcno: any
 
 
   //sample database
 
   users: any = {
-    1000: { acno: 1000, uname: "Sanoob", password: "abc0", balance: 5000, transaction: [] },
+    1000: { acno: 1000, uname: "aysha", password: "abc0", balance: 5000, transaction: [] },
     1001: { acno: 1001, uname: "Franklin", password: "abc1", balance: 5000, transaction: [] },
     1002: { acno: 1002, uname: "Michael", password: "abc2", balance: 5000, transaction: [] },
     1003: { acno: 1003, uname: "Trevor", password: "abc3", balance: 5000, transaction: [] },
@@ -70,7 +70,7 @@ export class DatasService {
       password
     }
 
-    //asynchronous 
+    //asynchronous
     return this.http.post('http://localhost:3000/register', data)
 
   }
@@ -81,7 +81,7 @@ export class DatasService {
       password
     }
 
-    //asynchronous 
+    //asynchronous
     return this.http.post('http://localhost:3000/login', data)
 
   }
@@ -106,7 +106,7 @@ export class DatasService {
       amt
 
     }
-    //asynchronous 
+    //asynchronous
     return this.http.post('http://localhost:3000/deposit', data, this.getOptions())
 
   }
@@ -133,7 +133,7 @@ export class DatasService {
       amt
 
     }
-    //asynchronous 
+    //asynchronous
     return this.http.post('http://localhost:3000/withdraw', data, this.getOptions())
 
   }
